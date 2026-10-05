@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaSFlow Scale Your Workflow Without Limits</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation Bar */
+        nav {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 20px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #38bdf8;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #f8fafc;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            padding: 60px 20px 40px 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f8fafc, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        /* Features Section */
+        .features-section {
+            max-width: 1100px;
+            width: 100%;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #f8fafc;
+        }
+
+        .section-desc {
+            color: #94a3b8;
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: left;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-box h3 {
+            color: #38bdf8;
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Pricing Section Wrapper */
+        .pricing-section {
+            padding: 40px 20px 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .pricing-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* Billing Switcher */
+        .billing-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+
+        .save-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        /* Pricing Cards */
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 35px 30px;
+            width: 300px;
+            flex: 1 /*Allows them to scale evenly */;
+            min-width: 280px;
+            max-width: 350px;
+            text-align: left;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        .pricing-card.featured {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid #38bdf8;
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 25px;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-card h2 {
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #38bdf8;
+        }
+
+        .plan-desc {
+            color: #94a3b8;
+            font-size: 13px;
+            min-height: 35px;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 34px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .price span {
+            font-size: 14px;
+            color: #94a3b8;
+            font-weight: normal;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+            color: #cbd5e1;
+            font-size: 14px;
+            flex-grow: 1;
+        }
+
+        .features li {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features li::before {
+            content: "✔";
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-card.featured .action-btn {
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            border: none;
+        }
+
+        .pricing-card.featured .action-btn:hover {
+            opacity: 0.9;
+        }
+
+        .action-btn.active-plan {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid #34d399;
+            cursor: default;
+        }
+
+        /* Footer */
+        footer {
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">SaaSFlow</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="mailto:support@example.com">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>Scale Your Workflow Without Limits</h1>
+        <p>The ultimate high-performance dashboard designed to automate your processes, secure your data, and accelerate your growth.</p>
+        <a href="#pricing" class="cta-primary">Get Started Today</a>
+    </header>
+
+    <!-- Features Grid Section -->
+    <section class="features-section" id="features">
+        <h2 class="section-title">Built for Performance</h2>
+        <p class="section-desc">Everything you need to run your operations smoothly and securely.</p>
+        
+        <div class="features-grid">
+            <div class="feature-box">
+                <h3>⚡ Lightning Fast</h3>
+                <p>Optimized infrastructure ensuring sub-second response times for all your active projects.</p>
+            </div>
+            <div class="feature-box">
+                <h3>🛡️ Secure & Reliable</h3>
+                <p>Enterprise-grade encryption and secure access controls keeping your sensitive business data safe.</p>
+            </div>
+            <div class="feature-box">
+                <h3>📊 Advanced Analytics</h3>
+                <p>Gain deep operational insights with real-time tracking, metrics, and customizable reports.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="hero" style="padding: 20px 0 30px 0;">
+            <h2 class="section-title">Flexible Plans for Every Stage</h2>
+            <p class="section-desc" style="margin-bottom: 20px;">Choose the right tier to unlock the full potential of your workflow.</p>
+            
+            <!-- Billing Cycle Switcher -->
+            <div class="billing-toggle">
+                <button class="toggle-btn active" id="monthlyBtn" onclick="setBilling('monthly')">Monthly Billing</button>
+                <button class="toggle-btn" id="annualBtn" onclick="setBilling('annual')">Annual Billing <span class="save-badge">Save 20%</span></button>
+            </div>
+        </div>
+
+        <div class="pricing-container">
+            <!-- Starter Plan -->
+            <div class="pricing-card">
+                <h2>Starter</h2>
+                <div class="plan-desc">Great for casual users trying out basic tools.</div>
+                <div class="price">₦0 <span id="starterPeriod">/ month</span></div>
+                <ul class="features">
+                    <li>Up to 3 projects</li>
+                    <li>Community support</li>
+                    <li>Standard speed infrastructure</li>
+                    <li>Basic analytics dashboard</li>
+                </ul>
+                <button class="action-btn" onclick="alert('You are already on the Free Starter plan!')">Current Plan</button>
+            </div>
+
+            <!-- Pro Plan (Paystack Enabled & Interactive State) -->
+            <div class="pricing-card featured" id="proCard">
+                <div class="popular-badge" id="proBadge">Popular</div>
+                <h2>Pro</h2>
+                <div class="plan-desc">Designed for growing creators and advanced power users.</div>
+                <div class="price"><span id="proPrice">₦50,000</span> <span id="proPeriod">/ month</span></div>
+                <ul class="features">
+                    <li>Unlimited projects</li>
+                    <li>Dedicated Infrastructure</li>
+                    <li>Custom Feature Gating</li>
+                    <li>Dedicated Account Manager</li>
+                    <li>Priority email support</li>
+                </ul>
+                <button class="action-btn" id="proActionBtn" onclick="payWithPaystack()">Upgrade to Pro</button>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div class="pricing-card">
+                <h2>Enterprise</h2>
+                <div class="plan-desc">Built for large organizations with custom demands.</div>
+                <div class="price">Custom</div>
+                <ul class="features">
+                    <li>Everything in Pro</li>
+                    <li>Custom SLAs & security audits</li>
+                    <li>Advanced team collaboration</li>
+                    <li>24/7 dedicated phone support</li>
+                </ul>
+                <a href="mailto:support@example.com" class="action-btn">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 SaaSFlow. All rights reserved. Built with Paystack Test Integration.</p>
+    </footer>
+
+    <!-- Paystack Inline SDK -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        let currentBilling = 'monthly';
+
+        function setBilling(type) {
+            currentBilling = type;
+            let proPriceEl = document.getElementById('proPrice');
+            let proPeriodEl = document.getElementById('proPeriod');
+            let starterPeriodEl = document.getElementById('starterPeriod');
+            let monthlyBtn = document.getElementById('monthlyBtn');
+            let annualBtn = document.getElementById('annualBtn');
+
+            if (type === 'annual') {
+                monthlyBtn.classList.remove('active');
+                annualBtn.classList.add('active');
+                proPriceEl.innerText = '₦480,000';
+                proPeriodEl.innerText = '/ year';
+                starterPeriodEl.innerText = '/ year';
+            } else {
+                annualBtn.classList.remove('active');
+                monthlyBtn.classList.add('active');
+                proPriceEl.innerText = '₦50,000';
+                proPeriodEl.innerText = '/ month';
+                starterPeriodEl.innerText = '/ month';
+            }
+        }
+
+        function payWithPaystack() {
+            let amountInNaira = currentBilling === 'annual' ? 480000 : 50000;
+
+            let handler = PaystackPop.setup({
+                key: 'pk_test_f4412c42b1e17d3d42a9299509264dbf8686406c', 
+                email: 'test@example.com', 
+                amount: amountInNaira * 100, 
+                currency: 'NGN',
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), 
+                callback: function(response) {
+                    alert('Payment successful! Reference: ' + response.reference);
+                    
+                    let proCard = document.getElementById('proCard');
+                    let proBadge = document.getElementById('proBadge');
+                    let proActionBtn = document.getElementById('proActionBtn');
+
+                    proCard.style.borderColor = '#34d399';
+                    proBadge.innerText = 'Active Plan';
+                    proBadge.style.background = 'linear-gradient(135deg, #059669, #10b981)';
+                    
+                    proActionBtn.innerText = '✓ Pro Plan Active';
+                    proActionBtn.className = 'action-btn active-plan';
+                    proActionBtn.onclick = null; 
+                },
+                onClose: function() {
+                    alert('Transaction was not completed, window closed.');
+                }
+            });
+            handler.openIframe();
+        }
+    </script>
+</body>
+</html>
+
